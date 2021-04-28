@@ -13,9 +13,9 @@ sed -i 's/#CONF_OPT_PYTHON3 = --enable-python3interp$/CONF_OPT_PYTHON3 = --enabl
 make
 sudo make install
 which vim
-cd ~
 
-mkdir ~/.vim
+cd ~
+mkdir -p ~/.vim
 cp ~/etc/vimrc ~/.vimrc
 cp ~/etc/custom.vimrc ~/.vim/custom.vimrc
 
@@ -28,31 +28,38 @@ sudo apt install autoconf pkg-config
 ./configure
 make
 sudo make install
-cd ~
 
 # Install latest nodejs
-curl --fail -LSs https://install-node.now.sh/latest | sh
+cd ~
+curl --fail -LSs https://install-node.now.sh/latest -o install-node.sh
+chmod +x ./install-node.sh
+sudo ./install-node.sh
+rm ./install-node.sh
 
 mkdir -p ~/.config/coc/extensions
 cp ~/etc/coc-package.json ~/.config/coc/extensions
-cd ~
 
 # install vim plugins and then quit
-vim -c 'PluginInstall | q'
+vim +PluginInstall +qall
 
 sudo apt install python3-pip
 pip3 install powerline-shell
-mkdir ~/.config/powerline-shell
+mkdir -p ~/.config/powerline-shell
 cp ~/etc/powerline-shell-config.json ~/.config/powerline-shell/config.json
 
 sudo apt-add-repository ppa:fish-shell/release-3
 sudo apt-get update
 sudo apt-get install fish
-mkdir ~/.config/fish
+mkdir -p ~/.config/fish
 cp ~/etc/config.fish ~/.config/fish/config.fish
 
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs -o rustup.sh
+chmod +x rustup.sh
+sudo ./rustup.sh
+rm ./rustup.sh
 
-cat 'cd ~' >> ~/.bashrc
-cat 'fish' >> ~/.bashrc
+echo 'cd ~' >> ~/.bashrc
+echo 'fish' >> ~/.bashrc
+
+fish
 
