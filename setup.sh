@@ -31,13 +31,8 @@ sudo make install
 cd ~
 
 # Install latest nodejs
-if [ ! -x "$(command -v node)" ]; then
-    curl --fail -LSs https://install-node.now.sh/latest | sh
-    # export PATH="/usr/local/bin/:$PATH"
-fi
+curl --fail -LSs https://install-node.now.sh/latest | sh
 
-
-# Coc Install extensions
 mkdir -p ~/.config/coc/extensions
 cp ~/etc/coc-package.json ~/.config/coc/extensions
 cd ~
@@ -57,4 +52,7 @@ mkdir ~/.config/fish
 cp ~/etc/config.fish ~/.config/fish/config.fish
 
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+
+cat 'cd ~' >> ~/.bashrc
+cat 'fish' >> ~/.bashrc
 
