@@ -53,6 +53,8 @@ sudo apt-get install fish
 mkdir -p ~/.config/fish
 cp ~/etc/config.fish ~/.config/fish/config.fish
 
+sudo apt install silversearcher-ag
+
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs -o rustup.sh
 chmod +x rustup.sh
 sudo ./rustup.sh
