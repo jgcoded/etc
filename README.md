@@ -1,2 +1,2 @@
-# etc
-Personal Editable Text Configuration repository
+# dotfiles
+Personal editable text configuration repository
