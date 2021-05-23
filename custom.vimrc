@@ -67,6 +67,8 @@ Plugin 'ryanoasis/vim-devicons'
 Plugin 'mhinz/vim-startify'
 Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'thaerkh/vim-workspace'
+Plugin 'dsummersl/gundo.vim'
+Plugin 'epmatsw/ag.vim'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -80,11 +82,15 @@ nmap <leader>q :close<CR>
 nmap <leader>x :qa<CR>
 imap jk <Esc>
 nmap <F8> :TagbarToggle<CR>
-nmap <C-k> <C-u>
-nmap <C-j> <C-d>
+" scroll text half screen up
+nmap <C-k> 4kzz
+" scroll text half screen down
+nmap <C-j> 4jzz
+" Go to the beginning of the line and enter insert mode
 nmap <C-h> I
+" Go to the end of the line and enter insert mode
 nmap <C-l> A
-" nmap <leader>; zz
+
 nmap [[ [[zz
 nmap ]] ]]zz
 let g:tagbar_autoclose=1
@@ -105,14 +111,16 @@ autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTr
     \ quit | endif
 
 
-" split navigations
+" Navigate to windows in tab
 nnoremap <leader>j <C-W><C-J>
 nnoremap <leader>k <C-W><C-K>
 nnoremap <leader>l <C-W><C-L>
 nnoremap <leader>h <C-W><C-H>
 
 nnoremap <leader>t :tabnew<CR>
-nnoremap <leader>n :tabnext<CR>
+command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
+	 	\ | wincmd p | diffthis
+
 
 set foldenable " enable folding
 set foldlevelstart=10 "open most folds by default
@@ -148,7 +156,7 @@ nnoremap ^ <nop>
 nnoremap gV `[v`]
 
 " toggle gundo
-nnoremap <leader>u :GundoToggle<CR>
+nnoremap <leader>u :MundoToggle<CR>
 
 " save session session can be opened with vim -S
 nnoremap <leader>s :ToggleWorkspace<CR>
