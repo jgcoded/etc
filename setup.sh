@@ -16,8 +16,8 @@ which vim
 
 cd ~
 mkdir -p ~/.vim
-cp ~/etc/vimrc ~/.vimrc
-cp ~/etc/custom.vimrc ~/.vim/custom.vimrc
+cp ~/dotfiles/vimrc ~/.vimrc
+cp ~/dotfiles/custom.vimrc ~/.vim/custom.vimrc
 
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim --depth 1
 
@@ -37,7 +37,7 @@ sudo ./install-node.sh
 rm ./install-node.sh
 
 mkdir -p ~/.config/coc/extensions
-cp ~/etc/coc-package.json ~/.config/coc/extensions
+cp ~/dotfiles/coc-package.json ~/.config/coc/extensions
 
 # install vim plugins and then quit
 vim +PluginInstall +qall
@@ -45,13 +45,13 @@ vim +PluginInstall +qall
 sudo apt install python3-pip
 pip3 install powerline-shell
 mkdir -p ~/.config/powerline-shell
-cp ~/etc/powerline-shell-config.json ~/.config/powerline-shell/config.json
+cp ~/dotfiles/powerline-shell-config.json ~/.config/powerline-shell/config.json
 
 sudo apt-add-repository ppa:fish-shell/release-3
 sudo apt-get update
 sudo apt-get install fish
 mkdir -p ~/.config/fish
-cp ~/etc/config.fish ~/.config/fish/config.fish
+cp ~/dotfiles/config.fish ~/.config/fish/config.fish
 
 sudo apt install silversearcher-ag
 
