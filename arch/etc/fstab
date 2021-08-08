@@ -1,0 +1,36 @@
+# Static information about the filesystems.
+# See fstab(5) for details.
+
+# <file system> <dir> <type> <options> <dump> <pass>
+# /dev/mapper/cryptroot LABEL=btrfs
+UUID=c69bc9db-6a3f-4ea0-bf87-47cdfb6f0b26	/         	btrfs     	rw,noatime,compress-force=zstd:3,ssd,space_cache=v2,subvolid=256,subvol=/@	0 0
+
+# /dev/sda1
+UUID=D62B-9A62      	/efi      	vfat      	rw,relatime,fmask=0022,dmask=0022,codepage=437,iocharset=ascii,shortname=mixed,utf8,errors=remount-ro	0 2
+
+# /dev/mapper/cryptroot LABEL=btrfs
+UUID=c69bc9db-6a3f-4ea0-bf87-47cdfb6f0b26	/home     	btrfs     	rw,noatime,compress-force=zstd:3,ssd,space_cache=v2,subvolid=257,subvol=/@home	0 0
+
+# /dev/mapper/cryptroot LABEL=btrfs
+UUID=c69bc9db-6a3f-4ea0-bf87-47cdfb6f0b26	/.snapshots	btrfs     	rw,noatime,compress-force=zstd:3,ssd,space_cache=v2,subvolid=258,subvol=/@snapshots	0 0
+
+# /dev/mapper/cryptroot LABEL=btrfs
+UUID=c69bc9db-6a3f-4ea0-bf87-47cdfb6f0b26	/var/log  	btrfs     	rw,noatime,compress-force=zstd:3,ssd,space_cache=v2,subvolid=259,subvol=/@var_log	0 0
+
+# /dev/mapper/cryptroot LABEL=btrfs
+UUID=c69bc9db-6a3f-4ea0-bf87-47cdfb6f0b26	/var/cache/pacman/pkg	btrfs     	rw,noatime,compress-force=zstd:3,ssd,space_cache=v2,subvolid=260,subvol=/@var_cache_pacman_pkg	0 0
+
+# /dev/mapper/cryptroot LABEL=btrfs
+UUID=c69bc9db-6a3f-4ea0-bf87-47cdfb6f0b26	/var/abs  	btrfs     	rw,noatime,compress-force=zstd:3,ssd,space_cache=v2,subvolid=261,subvol=/@var_abs	0 0
+
+# /dev/mapper/cryptroot LABEL=btrfs
+UUID=c69bc9db-6a3f-4ea0-bf87-47cdfb6f0b26	/var/tmp  	btrfs     	rw,noatime,compress-force=zstd:3,ssd,space_cache=v2,subvolid=262,subvol=/@var_tmp	0 0
+
+# /dev/mapper/cryptroot LABEL=btrfs
+UUID=c69bc9db-6a3f-4ea0-bf87-47cdfb6f0b26	/srv      	btrfs     	rw,noatime,compress-force=zstd:3,ssd,space_cache=v2,subvolid=263,subvol=/@srv	0 0
+
+# /dev/mapper/cryptroot LABEL=btrfs
+UUID=c69bc9db-6a3f-4ea0-bf87-47cdfb6f0b26	/swap     	btrfs     	rw,noatime,compress-force=zstd:3,ssd,space_cache=v2,subvolid=264,subvol=/@swap	0 0
+
+/swap/swapfile      	none      	swap      	defaults  	0 0
+

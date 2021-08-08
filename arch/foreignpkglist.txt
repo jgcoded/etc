@@ -1,0 +1,4 @@
+1password
+snap-pac-grub
+snapper-gui-git
+spotify
