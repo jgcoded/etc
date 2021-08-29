@@ -161,15 +161,8 @@ nnoremap <leader>u :MundoToggle<CR>
 " save session session can be opened with vim -S
 nnoremap <leader>s :ToggleWorkspace<CR>
 let g:workspace_session_directory = $HOME . '/.vim/sessions/'
-let g:workspace_undodir= $HOME . '/.vim/undodir'
+let g:workspace_undodir= $HOME . '/.vim/undo-dir'
 set sessionoptions-=blank
-
- "CtrlP settings
-let g:ctrlp_match_window = 'bottom,order:ttb'
-" Always open files in new buffers
-let g:ctrlp_switch_buffer = 0
-" Change working directory if vim working directory is changed
-let g:ctrlp_working_path_mode = 0
 
 " enable backup support
 set backup
@@ -180,11 +173,21 @@ set directory=~/.vim/tmp,.
 if !isdirectory($HOME."/.vim")
     call mkdir($HOME."/.vim", "", 0770)
 endif
+if !isdirectory($HOME."/.vim/tmp")
+    call mkdir($HOME."/.vim/tmp", "", 0770)
+endif
 if !isdirectory($HOME."/.vim/undo-dir")
     call mkdir($HOME."/.vim/undo-dir", "", 0700)
 endif
 set undodir=~/.vim/undo-dir
 set undofile
+
+ "CtrlP settings
+let g:ctrlp_match_window = 'bottom,order:ttb'
+" Always open files in new buffers
+let g:ctrlp_switch_buffer = 0
+" Change working directory if vim working directory is changed
+let g:ctrlp_working_path_mode = 0
 
 " toggle between number and relativenumber
 function! ToggleNumber()
