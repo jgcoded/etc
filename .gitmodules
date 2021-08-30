@@ -10,3 +10,15 @@
 [submodule "arch/snapper-gui-git"]
 	path = arch/snapper-gui-git
 	url = https://aur.archlinux.org/snapper-gui-git.git
+[submodule "arch/home/julio/visual-studio-code-bin"]
+	path = arch/home/julio/visual-studio-code-bin
+	url = https://aur.archlinux.org/visual-studio-code-bin.git
+[submodule "arch/home/julio/yay"]
+	path = arch/home/julio/yay
+	url = https://aur.archlinux.org/yay.git
+[submodule "arch/home/julio/rr"]
+	path = arch/home/julio/rr
+	url = https://aur.archlinux.org/rr.git
+[submodule "arch/home/julio/.vim/bundle/Vundle.vim"]
+	path = arch/home/julio/.vim/bundle/Vundle.vim
+	url = git@github.com:VundleVim/Vundle.vim.git

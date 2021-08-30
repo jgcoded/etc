@@ -10,8 +10,8 @@ bison
 bluez
 bluez-utils
 btrfs-progs
-code
 compsize
+cuda
 cups
 dialog
 dmenu
@@ -19,6 +19,7 @@ efibootmgr
 fakeroot
 firefox
 fish
+flameshot
 flex
 gcc
 git
@@ -32,6 +33,7 @@ i3lock
 i3status
 i3status-rust
 intel-ucode
+jupyter-notebook
 libfido2
 libtool
 lightdm
@@ -46,6 +48,8 @@ neofetch
 network-manager-applet
 networkmanager
 nitrogen
+nodejs
+npm
 nvidia
 nvidia-settings
 openssh
@@ -55,15 +59,22 @@ pkgconf
 pulseaudio
 pulseaudio-bluetooth
 reflector
+rr
 rsync
 snap-pac-grub
 snapper
 snapper-gui-git
 spotify
+sshfs
 sudo
 texinfo
+the_silver_searcher
 ttf-font-awesome
+unzip
 vim
+virtualbox
+virtualbox-host-modules-arch
+visual-studio-code-bin
 which
 wpa_supplicant
 xdg-user-dirs
@@ -109,6 +120,7 @@ xorg-xwayland
 xorg-xwd
 xorg-xwininfo
 xorg-xwud
+yay
 yubikey-manager
 yubikey-manager-qt
 yubioath-desktop

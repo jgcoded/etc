@@ -1,4 +1,7 @@
 1password
+rr
 snap-pac-grub
 snapper-gui-git
 spotify
+visual-studio-code-bin
+yay
