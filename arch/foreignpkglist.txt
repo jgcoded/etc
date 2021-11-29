@@ -1,7 +1,12 @@
 1password
+bear
+godot-mono-bin
+mpich
 rr
 snap-pac-grub
 snapper-gui-git
 spotify
 visual-studio-code-bin
+vmware-workstation
 yay
+zsa-wally-bin
