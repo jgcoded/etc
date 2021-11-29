@@ -1,0 +1,66 @@
+
+snippet fileheader "/* */" bA
+/*
+	Author: Julio C. Gutierrez
+	Date: `date`
+*/
+
+endsnippet
+
+snippet inc "#include <>" b
+#include <$1>
+
+endsnippet
+
+snippet incq "#include <>" b
+#include "$1"
+
+endsnippet
+
+snippet main "int main() { return 0;}" b
+int main(int argc, char** argv)
+{
+	$0
+	return 0;
+}
+
+endsnippet
+
+snippet printf
+printf("${1:%s}\n"${1/([^%]|%%)*(%.)?.*/(?2:, :\);)/}$2${1/([^%]|%%)*(%.)?.*/(?2:\);)/}
+endsnippet
+
+snippet if "if (condition) { body }" b
+if (${VISUAL}$1)
+{
+	$0
+}
+endsnippet
+
+snippet elif "else if (condition) { body }" bA
+else if (${VISUAL}$1)
+{
+	$0
+}
+endsnippet
+
+snippet comment "/* ${VISUAL} */"
+/*
+${VISUAL}
+*/
+endsnippet
+
+snippet while "while (condition) { body }" b
+while (${VISUAL}$1)
+{
+	$0
+}
+endsnippet
+
+snippet for "for (decl; condition; post) { body }" b
+for ($1; $2; $3)
+{
+	${VISUAL}$0
+}
+endsnippet
+
