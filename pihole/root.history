@@ -1,0 +1,30 @@
+    1  cd /etc/wireguard/
+    2  umask 077
+    3  wg genkey | tee server.key | wg pubkey > server.pub
+    4  sudo nano /etc/wireguard/wg0.conf
+    5  echo "PrivateKey = $(cat server.key)"
+    6  echo "PrivateKey = $(cat server.key)" >> /etc/wireguard/wg0.conf
+    7  exit
+    8  cd /etc/wireguard/
+    9  umask 077
+   10  name="CLIENT_NAME"
+   11  wg genkey | tee "${name}.key" | wg pubkey > "${name}.pub"
+   12  wg genpsk > "${name}.psk"
+   13  sudo vim /etc/wireguard/wg0.conf
+   14  echo "[Peer]" >> /etc/wireguard/wg0.conf
+   15  echo "PublicKey = $(cat "${name}.pub")" >> /etc/wireguard/wg0.conf
+   16  echo "PresharedKey = $(cat "${name}.psk")" >> /etc/wireguard/wg0.conf
+   17  echo "AllowedIPs = 10.100.0.2/32, fd08:4711::2/128" >> /etc/wireguard/wg0.conf
+   18  systemctl restart wg-quick@wg0
+   19  cat /etc/wireguard/wg0.conf
+   20  wg
+   21  echo "[Interface]" > "${name}.conf"
+   22  echo "Address = 10.100.0.2/32, fd08:4711::2/128" >> "${name}.conf" # May need editing
+   23  echo "DNS = 10.100.0.1" >> "${name}.conf"
+   24  ls
+   25  vim CLIENT_NAME.conf 
+   26  echo "PrivateKey = $(cat "${name}.key")" >> "${name}.conf"
+   27  vim CLIENT_NAME.conf 
+   28  echo "PublicKey = $(cat server.pub)" >> "${name}.conf"
+   29  echo "PresharedKey = $(cat "${name}.psk")" >> "${name}.conf"
+   30  exit

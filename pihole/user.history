@@ -1,0 +1,51 @@
+    7  git clone --depth 1 https://github.com/pi-hole/pi-hole.git Pi-hole Pi-hole
+    8  git clone --depth 1 https://github.com/pi-hole/pi-hole.git Pi-hole
+    9  cd Pi-hole/automated\ install/
+   12  sudo bash basic-install.sh
+   17  wget wget https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb
+   18  sudo apt-get install ./cloudflared-linux-amd64.deb
+   19  cloudfared -v
+   28  sudo useradd -s /usr/sbin/nologin -r -M cloudflared
+   23  sudo vim /etc/default/cloudflared
+   29  sudo chown cloudflared:cloudflared /etc/default/cloudflared
+   30  sudo chown cloudflared:cloudflared /usr/local/bin/cloudflared
+   31  sudo vim /etc/systemd/system/cloudflared.service
+   32  sudo systemctl enable cloudflared
+   33  sudo systemctl start cloudflared
+   34  sudo systemctl status cloudflared
+   35  dig @127.0.0.1 -p 5053 google.com
+   36  sudo vim /etc/cron.weekly/cloudflared-updater
+   37  sudo chmod +x /etc/cron.weekly/cloudflared-updater
+   38  sudo chown root:root /etc/cron.weekly/cloudflared-updater
+   39  dig @127.0.0.1 -p 5053 google.com
+   42  pihole -a -p <<NEW PASSWORD HERE>>
+   77  sudo snap install core; sudo snap refresh core
+   78  sudo apt-get remove certbot
+   79  sudo snap install --classic certbot
+   80  sudo ln -s /snap/bin/certbot /usr/bin/certbot
+   81  service
+   82  service lighttpd stop
+   83  sudo service lighttpd stop
+   84  sudo certbot certonly --standalone
+   85  sudo certbot renew --dry-run
+   87  sudo cat /etc/letsencrypt/live/pihole.example.com/privkey.pem
+   88  sudo cat /etc/letsencrypt/live/pihole.example.com/privkey.pem /etc/letsencrypt/live/pihole.example.com/cert.pem
+   89  sudo cat /etc/letsencrypt/live/pihole.example.com/privkey.pem /etc/letsencrypt/live/pihole.example.com/cert.pem | sudo tee /etc/letsencrypt/live/pihole.example.com/combined.pem
+   90  sudo cat /etc/letsencrypt/live/pihole.example.com/combined.pem
+   91  sudo chown www-data -R /etc/letsencrypt/live
+   92  sudo vim /etc/lighttpd/external.conf
+   93  sudo service lighttpd restart
+   95  sudo vim /etc/default/cloudflared
+   96  sudo systemctl restart cloudflared
+  107  sudo apt-get install wireguard wireguard-tools
+  109  sudo -i
+  110  sudo systemctl enable wg-quick@wg0.service
+  111  sudo systemctl daemon-reload
+  112  sudo systemctl start wg-quick@wg0
+  113  sudo systemctl status wg-quick@wg0
+  114  sudo wg
+  115  sudo -i
+  116  sudo cp /etc/wireguard/CLIENT_NAME.conf ./CLIENT_NAME.conf
+  119  sudo chown auser:auser ./CLIENT_NAME.conf
+  121  sudo apt-get install qrencode
+  124  sudo qrencode -t ansiutf8 -r "/etc/wireguard/CLIENT_NAME.conf"

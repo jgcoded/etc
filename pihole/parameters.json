@@ -1,0 +1,33 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "home_network_ip" : {
+            "value" : null
+        },
+        "public_ssh_key" : {
+            "value" : null
+        },
+        "custom_domain_label" : {
+            "value" : null
+        },
+        "custom_domain_fqdn" : {
+            "value" : null
+        },
+        "virtualNetworks_pihole_vnet_name": {
+            "value": null
+        },
+        "virtualMachines_pihole_eastus2_name": {
+            "value": null
+        },
+        "publicIPAddresses_pi_hole_eastus2_name": {
+            "value": null
+        },
+        "networkInterfaces_pihole_eastus2780_name": {
+            "value": null
+        },
+        "networkSecurityGroups_pihole_eastus2_nsg_name": {
+            "value": null
+        }
+    }
+}
