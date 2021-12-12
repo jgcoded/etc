@@ -139,3 +139,11 @@ snippet "(\\?\w+)(,\.|\.,)" "Vector postfix" riA
 \vec{`!p snip.rv=match.group(1)`}
 endsnippet
 
+snippet "figure" "Image figure"
+\begin{figure}
+\includegraphics{$1}
+\caption{$2}
+\centering
+\end{figure}
+$0
+endsnippet
