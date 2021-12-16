@@ -10,14 +10,6 @@
             "defaultValue": "EDITME",
             "type": "String"
         },
-        "custom_domain_label" : {
-            "defaultValue": "EDITME",
-            "type": "String"
-        },
-        "custom_domain_fqdn" : {
-            "defaultValue": "EDITME",
-            "type": "String"
-        },
         "virtualNetworks_pihole_vnet_name": {
             "defaultValue": "pihole-vnet",
             "type": "String"
@@ -104,10 +96,6 @@
                 "publicIPAddressVersion": "IPv4",
                 "publicIPAllocationMethod": "Static",
                 "idleTimeoutInMinutes": 30,
-                "dnsSettings": {
-                    "domainNameLabel": "[parameters('custom_domain_label')]",
-                    "fqdn": "[parameters('custom_domain_fqdn')]"
-                },
                 "ipTags": []
             }
         },
@@ -162,8 +150,7 @@
                         "createOption": "FromImage",
                         "caching": "ReadWrite",
                         "managedDisk": {
-                            "storageAccountType": "Premium_LRS",
-                            "id": "[resourceId('Microsoft.Compute/disks', concat(parameters('virtualMachines_pihole_eastus2_name'), '_OsDisk_1_a934014bb7ae42d9920a8727b19d674e'))]"
+                            "storageAccountType": "Premium_LRS"
                         },
                         "deleteOption": "Detach",
                         "diskSizeGB": 30
@@ -190,8 +177,7 @@
                         }
                     },
                     "secrets": [],
-                    "allowExtensionOperations": true,
-                    "requireGuestProvisionSignal": true
+                    "allowExtensionOperations": true
                 },
                 "networkProfile": {
                     "networkInterfaces": [

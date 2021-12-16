@@ -1,8 +1,7 @@
-    7  git clone --depth 1 https://github.com/pi-hole/pi-hole.git Pi-hole Pi-hole
     8  git clone --depth 1 https://github.com/pi-hole/pi-hole.git Pi-hole
     9  cd Pi-hole/automated\ install/
    12  sudo bash basic-install.sh
-   17  wget wget https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb
+   17  wget https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb
    18  sudo apt-get install ./cloudflared-linux-amd64.deb
    19  cloudfared -v
    28  sudo useradd -s /usr/sbin/nologin -r -M cloudflared
@@ -23,20 +22,14 @@
    78  sudo apt-get remove certbot
    79  sudo snap install --classic certbot
    80  sudo ln -s /snap/bin/certbot /usr/bin/certbot
-   81  service
-   82  service lighttpd stop
    83  sudo service lighttpd stop
    84  sudo certbot certonly --standalone
    85  sudo certbot renew --dry-run
-   87  sudo cat /etc/letsencrypt/live/pihole.example.com/privkey.pem
-   88  sudo cat /etc/letsencrypt/live/pihole.example.com/privkey.pem /etc/letsencrypt/live/pihole.example.com/cert.pem
    89  sudo cat /etc/letsencrypt/live/pihole.example.com/privkey.pem /etc/letsencrypt/live/pihole.example.com/cert.pem | sudo tee /etc/letsencrypt/live/pihole.example.com/combined.pem
    90  sudo cat /etc/letsencrypt/live/pihole.example.com/combined.pem
    91  sudo chown www-data -R /etc/letsencrypt/live
    92  sudo vim /etc/lighttpd/external.conf
    93  sudo service lighttpd restart
-   95  sudo vim /etc/default/cloudflared
-   96  sudo systemctl restart cloudflared
   107  sudo apt-get install wireguard wireguard-tools
   109  sudo -i
   110  sudo systemctl enable wg-quick@wg0.service

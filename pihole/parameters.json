@@ -8,12 +8,6 @@
         "public_ssh_key" : {
             "value" : null
         },
-        "custom_domain_label" : {
-            "value" : null
-        },
-        "custom_domain_fqdn" : {
-            "value" : null
-        },
         "virtualNetworks_pihole_vnet_name": {
             "value": null
         },

@@ -2,7 +2,6 @@
     2  umask 077
     3  wg genkey | tee server.key | wg pubkey > server.pub
     4  sudo nano /etc/wireguard/wg0.conf
-    5  echo "PrivateKey = $(cat server.key)"
     6  echo "PrivateKey = $(cat server.key)" >> /etc/wireguard/wg0.conf
     7  exit
     8  cd /etc/wireguard/
