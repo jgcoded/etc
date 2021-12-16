@@ -26,7 +26,6 @@
    84  sudo certbot certonly --standalone
    85  sudo certbot renew --dry-run
    89  sudo cat /etc/letsencrypt/live/pihole.example.com/privkey.pem /etc/letsencrypt/live/pihole.example.com/cert.pem | sudo tee /etc/letsencrypt/live/pihole.example.com/combined.pem
-   90  sudo cat /etc/letsencrypt/live/pihole.example.com/combined.pem
    91  sudo chown www-data -R /etc/letsencrypt/live
    92  sudo vim /etc/lighttpd/external.conf
    93  sudo service lighttpd restart
