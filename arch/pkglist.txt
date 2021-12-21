@@ -65,6 +65,7 @@ nodejs
 npm
 nvidia
 nvidia-settings
+obs-studio
 openssh
 patch
 picom
@@ -80,6 +81,7 @@ snapper-gui-git
 spotify
 sshfs
 sudo
+systemd-resolvconf
 texinfo
 texlive-bibtexextra
 texlive-fontsextra
@@ -101,6 +103,7 @@ virtualbox-host-modules-arch
 visual-studio-code-bin
 vmware-workstation
 which
+wireguard-tools
 wpa_supplicant
 xdg-user-dirs
 xdg-utils
