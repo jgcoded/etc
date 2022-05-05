@@ -1,0 +1,36 @@
+# ssh turn@public-ip
+
+sudo apt-get -y update
+sudo apt-get install coturn
+systemctl stop coturn
+
+sudo mkdir /var/db
+sudo chown turnserver:turnserver /var/db
+
+echo "TURNSERVER_ENABLED=1" >> /etc/default/coturn
+sudo cp /etc/turnserver.conf /etc/turnserver.conf.bak
+
+sudo vim /etc/turnserver.conf
+
+# cert
+sudo snap install core; sudo snap refresh core
+sudo snap install --classic certbot
+sudo ln -s /snap/bin/certbot /usr/bin/certbot
+
+sudo certbot -d *.yourdomain.com --manual --preferred-challenges dns certonly
+#/etc/letsencrypt/live/turn.foo.com/fullchain.pem
+#/etc/letsencrypt/live/turn.foo.com/privkey.pem
+# - This certificate will not be renewed automatically.
+# Autorenewal of --manual certificates requires the
+# use of an authentication hook script (--manual-auth-hook)
+# but one was not provided. To renew this certificate,
+# repeat this same certbot command before the
+# certificate's expiry date.
+
+
+sudo nano /etc/turnserver.conf
+sudo systemctl restart coturn
+
+sudo systemctl status coturn
+
+sudo turnadmin --set-secret=1234 --realm p2p.foo.com --db /var/db/turndb
