@@ -1,3 +1,4 @@
+# assumes ubuntu 20.04 box with default user turn
 # ssh turn@public-ip
 
 sudo apt-get -y update
@@ -17,9 +18,9 @@ sudo snap install core; sudo snap refresh core
 sudo snap install --classic certbot
 sudo ln -s /snap/bin/certbot /usr/bin/certbot
 
-sudo certbot -d *.yourdomain.com --manual --preferred-challenges dns certonly
-#/etc/letsencrypt/live/turn.foo.com/fullchain.pem
-#/etc/letsencrypt/live/turn.foo.com/privkey.pem
+sudo certbot -d *.p2p.foo.com --manual --preferred-challenges dns certonly
+#/etc/letsencrypt/live/p2p.foo.com/fullchain.pem
+#/etc/letsencrypt/live/p2p.foo.com/privkey.pem
 # - This certificate will not be renewed automatically.
 # Autorenewal of --manual certificates requires the
 # use of an authentication hook script (--manual-auth-hook)
@@ -33,4 +34,45 @@ sudo systemctl restart coturn
 
 sudo systemctl status coturn
 
-sudo turnadmin --set-secret=1234 --realm p2p.foo.com --db /var/db/turndb
+# sudo turnadmin --set-secret=1234 --realm p2p.foo.com --db /var/db/turndb
+
+wget https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
+sudo dpkg -i packages-microsoft-prod.deb
+rm packages-microsoft-prod.deb
+
+sudo apt-get update; \
+  sudo apt-get install -y apt-transport-https && \
+  sudo apt-get update && \
+  sudo apt-get install -y aspnetcore-runtime-6.0
+
+mkdir -p /var/www/p2p-api
+sudo chown turn:turn /var/www/p2p-api
+
+# Use scp to deploy latest bits from dev machine to this box
+# scp bin\Release\net6.0\linux-x64\publish\* turn@p2p.foo.com:/var/www/p2p-api
+
+# verify the secrets have changed
+turnadmin --show-secret --db /var/db/turndb
+
+# copy over the systemd service file to
+# /etc/systemd/system/kestrel-p2p-api.service
+# scp kestrel-p2p-api.service turn@p2p.foo.com:~/kestrel-p2p-api.service
+sudo mv kestrel-p2p-api.service /etc/systemd/system/
+
+sudo systemctl enable kestrel-p2p-api.service
+sudo systemctl start kestrel-p2p-api.service
+sudo systemctl status kestrel-p2p-api.service
+# When deploying do stop, scp, and then start
+# sudo systemctl stop kestrel-p2p-api.service
+
+# view logs
+sudo journalctl -fu kestrel-p2p-api.service
+sudo journalctl -fu kestrel-p2p-api.service --since "2022-5-6" --until "2022-5-6 04:00"
+# --since today, --until 1 hour ago
+
+sudo apt-get install nginx
+sudo service nginx start
+
+# verify nginx configuration file syntax
+sudo nginx -t
+sudo nginx -s reload
