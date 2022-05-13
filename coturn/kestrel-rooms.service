@@ -1,14 +1,14 @@
 [Unit]
-Description=P2P API on Ubuntu
+Description=Coturn P2P API on Ubuntu
 
 [Service]
-WorkingDirectory=/var/www/p2p-api
-ExecStart=/usr/bin/dotnet /var/www/p2p-api/p2p-api.dll
+WorkingDirectory=/var/www/rooms
+ExecStart=/usr/bin/dotnet /var/www/rooms/Rooms.dll
 Restart=always
 # Restart service after 10 seconds if the dotnet service crashes:
 RestartSec=10
 KillSignal=SIGINT
-SyslogIdentifier=p2p-api
+SyslogIdentifier=rooms
 User=turnserver
 Environment=ASPNETCORE_ENVIRONMENT=Production
 Environment=DOTNET_PRINT_TELEMETRY_MESSAGE=false
