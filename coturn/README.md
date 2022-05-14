@@ -1,6 +1,6 @@
 # Coturn server with REST API
 
-Editable Text Configuration for a coturn server configured to allow credentials provisioned through a TURN Rest API. The API server used that is set up in the `user.history` file is found here: https://github.com/jgcoded/p2p-api
+Editable Text Configuration for a coturn server configured to allow credentials provisioned through a TURN Rest API. The API server used that is set up in the `user.history` file is found here: https://github.com/jgcoded/Rooms
 
 The configuration files here provide:
 

@@ -8,6 +8,9 @@ systemctl stop coturn
 sudo mkdir /var/db
 sudo chown turnserver:turnserver /var/db
 
+sudo mkdir /var/log/coturn
+sudo chown turnserver:turnserver /var/log/coturn
+
 echo "TURNSERVER_ENABLED=1" >> /etc/default/coturn
 sudo cp /etc/turnserver.conf /etc/turnserver.conf.bak
 
@@ -28,6 +31,10 @@ sudo certbot -d *.p2p.foo.com --manual --preferred-challenges dns certonly
 # repeat this same certbot command before the
 # certificate's expiry date.
 
+# Can also do:
+# sudo certbot certonly --standalone --preferred-challenges http \
+#    --deploy-hook "systemctl restart coturn" \
+#    -d <YOUR_DOMAIN>
 
 sudo nano /etc/turnserver.conf
 sudo systemctl restart coturn
@@ -45,29 +52,29 @@ sudo apt-get update; \
   sudo apt-get update && \
   sudo apt-get install -y aspnetcore-runtime-6.0
 
-mkdir -p /var/www/p2p-api
-sudo chown turn:turn /var/www/p2p-api
+mkdir -p /var/www/rooms
+sudo chown turn:turn /var/www/rooms
 
 # Use scp to deploy latest bits from dev machine to this box
-# scp bin\Release\net6.0\linux-x64\publish\* turn@p2p.foo.com:/var/www/p2p-api
+# scp bin\Release\net6.0\linux-x64\publish\* turn@p2p.foo.com:/var/www/rooms
 
 # verify the secrets have changed
 turnadmin --show-secret --db /var/db/turndb
 
 # copy over the systemd service file to
-# /etc/systemd/system/kestrel-p2p-api.service
-# scp kestrel-p2p-api.service turn@p2p.foo.com:~/kestrel-p2p-api.service
-sudo mv kestrel-p2p-api.service /etc/systemd/system/
+# /etc/systemd/system/kestrel-rooms.service
+# scp kestrel-rooms.service turn@p2p.foo.com:~/kestrel-rooms.service
+sudo mv kestrel-rooms.service /etc/systemd/system/
 
-sudo systemctl enable kestrel-p2p-api.service
-sudo systemctl start kestrel-p2p-api.service
-sudo systemctl status kestrel-p2p-api.service
+sudo systemctl enable kestrel-rooms.service
+sudo systemctl start kestrel-rooms.service
+sudo systemctl status kestrel-rooms.service
 # When deploying do stop, scp, and then start
-# sudo systemctl stop kestrel-p2p-api.service
+# sudo systemctl stop kestrel-rooms.service
 
 # view logs
-sudo journalctl -fu kestrel-p2p-api.service
-sudo journalctl -fu kestrel-p2p-api.service --since "2022-5-6" --until "2022-5-6 04:00"
+sudo journalctl -fu kestrel-rooms.service
+sudo journalctl -fu kestrel-rooms.service --since "2022-5-6" --until "2022-5-6 04:00"
 # --since today, --until 1 hour ago
 
 sudo apt-get install nginx
