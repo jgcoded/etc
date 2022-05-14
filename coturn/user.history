@@ -80,6 +80,8 @@ sudo journalctl -fu kestrel-rooms.service --since "2022-5-6" --until "2022-5-6 0
 sudo apt-get install nginx
 sudo service nginx start
 
+sudo vim /etc/nginx/nginx.conf
+
 # verify nginx configuration file syntax
 sudo nginx -t
 sudo nginx -s reload

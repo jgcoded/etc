@@ -1,5 +1,5 @@
 [Unit]
-Description=P2P API on Ubuntu
+Description=Coturn P2P API on Ubuntu
 
 [Service]
 WorkingDirectory=/var/www/rooms
