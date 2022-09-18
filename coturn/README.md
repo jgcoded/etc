@@ -8,6 +8,18 @@ The configuration files here provide:
 * ASP.NET API server managed with systemd
 * Nginx with https support proxying requests to the API server
 
+## Cert renewal steps
+
+DNS challenge must be used due to the wildcart cert.
+
+```
+sudo certbot -d *.p2p.foo.com --manual --preferred-challenges dns certonly
+sudo systemctl restart coturn
+sudo systemctl restart kestrel-rooms.service
+sudo nginx -t
+sudo nginx -s reload
+```
+
 References
 
 * https://docs.microsoft.com/en-us/gaming/azure/reference-architectures/stun-turn-server-in-azure
