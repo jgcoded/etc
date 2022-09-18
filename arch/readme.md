@@ -8,10 +8,10 @@ These were the steps I followed for a clean install without a Desktop Environmen
 Download the archiso from here archlinux.org. Boot into the iso and check your internet connection:
 
 ```
-# ip link
-# ip addr show
-# ping archlinux.org
-# timedatectl set-ntp true
+root@archiso ~ # ip link
+root@archiso ~ # ip addr show
+root@archiso ~ # ping archlinux.org
+root@archiso ~ # timedatectl set-ntp true
 ```
 
 ## Partitions
@@ -20,9 +20,9 @@ Before creading the partitions, securely erase the disk.
 
 Boot into the live environment and then use fdisk on your hard drive to create the partitions as shown in the below table. Be sure to format the EFI partitions.
 
-```bash
-# fdisk -l
-# fdisk /dev/sda
+```
+root@archiso ~ # fdisk -l
+root@archiso ~ # fdisk /dev/sda
 ```
 
 Type | Partition | Encryption | Size | Mount Point
@@ -61,21 +61,21 @@ w
 Then,
 
 ```
-# mkfs.fat -F32 /dev/sda1
+root@archiso ~ # mkfs.fat -F32 /dev/sda1
 ```
 
 ## btrfs initialization with encryption
 
 ```
-# cryptsetup -s 512 luksFormat --type luks1 /dev/sda2
+root@archiso ~ # cryptsetup -s 512 luksFormat --type luks1 /dev/sda2
 ```
 Enter a password
 
 ```
-# cryptsetup luksDump /dev/sda2
-# cryptsetup open /dev/sda2 cryptroot
-# mkfs.btrfs -L btrfs /dev/mapper/cryptroot
-# mount /dev/mapper/cryptroot /mnt
+root@archiso ~ # cryptsetup luksDump /dev/sda2
+root@archiso ~ # cryptsetup open /dev/sda2 cryptroot
+root@archiso ~ # mkfs.btrfs -L btrfs /dev/mapper/cryptroot
+root@archiso ~ # mount /dev/mapper/cryptroot /mnt
 ```
 
 ### btrfs subvolume setup
@@ -93,38 +93,30 @@ Subvolume|Mount point
 @swap|/swap
 
 ```
-# btrfs subvolume create /mnt/@
-# btrfs subvolume create /mnt/@home
-# btrfs subvolume create /mnt/@snapshots
-# btrfs subvolume create /mnt/@var_log
-# btrfs subvolume create /mnt/@var_cache_pacman_pkg
-# btrfs subvolume create /mnt/@var_abs
-# btrfs subvolume create /mnt/@var_tmp
-# btrfs subvolume create /mnt/@srv
-# btrfs subvolume create /mnt/@swap
-# umount /mnt
-# mount -o noatime,compress-force=zstd,space_cache=v2,subvol=@ /dev/mapper/cryptroot /mnt
+root@archiso ~ # btrfs subvolume create /mnt/@
+root@archiso ~ # btrfs subvolume create /mnt/@home
+root@archiso ~ # btrfs subvolume create /mnt/@snapshots
+root@archiso ~ # btrfs subvolume create /mnt/@var_log
+root@archiso ~ # btrfs subvolume create /mnt/@var_cache_pacman_pkg
+root@archiso ~ # btrfs subvolume create /mnt/@var_abs
+root@archiso ~ # btrfs subvolume create /mnt/@var_tmp
+root@archiso ~ # btrfs subvolume create /mnt/@srv
+root@archiso ~ # btrfs subvolume create /mnt/@swap
+root@archiso ~ # umount /mnt
+root@archiso ~ # mount -o noatime,compress-force=zstd,space_cache=v2,subvol=@ /dev/mapper/cryptroot /mnt
 ```
 If the mount command doesn't work, use `subvolid` instead of `subvol`.
 
 ```
-# mkdir -p /mnt/{boot,home,.snapshots,var/log,var/cache/pacman/pkg,var/abs,/var/tmp,srv,swap}
-
-# mount -o noatime,compress-force=zstd,space_cache=v2,subvol=@home /dev/mapper/cryptroot /mnt/home
-
-# mount -o noatime,compress-force=zstd,space_cache=v2,subvol=@snapshots /dev/mapper/cryptroot /mnt/.snapshots
-
-# mount -o noatime,compress-force=zstd,space_cache=v2,subvol=@var_log /dev/mapper/cryptroot /mnt/var/log
-
-# mount -o noatime,compress-force=zstd,space_cache=v2,subvol=@var_cache_pacman_pkg /dev/mapper/cryptroot /mnt/var/cache/pacman/pkg
-
-# mount -o noatime,compress-force=zstd,space_cache=v2,subvol=@var_abs /dev/mapper/cryptroot /mnt/var/abs
-
-# mount -o noatime,compress-force=zstd,space_cache=v2,subvol=@var_tmp /dev/mapper/cryptroot /mnt/var/tmp
-
-# mount -o noatime,compress-force=zstd,space_cache=v2,subvol=@srv /dev/mapper/cryptroot /mnt/srv
-
-# mount -o noatime,compress-force=zstd,space_cache=v2,subvol=@swap /dev/mapper/cryptroot /mnt/swap
+root@archiso ~ # mkdir -p /mnt/{boot,home,.snapshots,var/log,var/cache/pacman/pkg,var/abs,/var/tmp,srv,swap}
+root@archiso ~ # mount -o noatime,compress-force=zstd,space_cache=v2,subvol=@home /dev/mapper/cryptroot /mnt/home
+root@archiso ~ # mount -o noatime,compress-force=zstd,space_cache=v2,subvol=@snapshots /dev/mapper/cryptroot /mnt/.snapshots
+root@archiso ~ # mount -o noatime,compress-force=zstd,space_cache=v2,subvol=@var_log /dev/mapper/cryptroot /mnt/var/log
+root@archiso ~ # mount -o noatime,compress-force=zstd,space_cache=v2,subvol=@var_cache_pacman_pkg /dev/mapper/cryptroot /mnt/var/cache/pacman/pkg
+root@archiso ~ # mount -o noatime,compress-force=zstd,space_cache=v2,subvol=@var_abs /dev/mapper/cryptroot /mnt/var/abs
+root@archiso ~ # mount -o noatime,compress-force=zstd,space_cache=v2,subvol=@var_tmp /dev/mapper/cryptroot /mnt/var/tmp
+root@archiso ~ # mount -o noatime,compress-force=zstd,space_cache=v2,subvol=@srv /dev/mapper/cryptroot /mnt/srv
+root@archiso ~ # mount -o noatime,compress-force=zstd,space_cache=v2,subvol=@swap /dev/mapper/cryptroot /mnt/swap
 
 ```
 
@@ -133,74 +125,66 @@ If the mount command doesn't work, use `subvolid` instead of `subvol`.
 ## Set up swap file
 
 ```
-# cd /mnt/swap
-# truncate -s 0 /.swapfile
-# chattr +C /mnt/swap
-# dd if=/dev/zero of=/mnt/swap/swapfile bs=1M count=16384 status=progress
-# chmod 600 /mnt/swap/swapfile
-# mkswap /mnt/swap/swapfile
-# swapon /mnt/swap/swapfile
-```
-
-
-This line is only needed if not using genfstab. It is used after generating /etc/fstab
-```
-# echo "/swap/swapfile none swap defaults 0 0" >> /etc/fstab
+root@archiso ~ # truncate -s 0 /mnt/swap/swapfile
+root@archiso ~ # chattr +C /mnt/swap
+root@archiso ~ # dd if=/dev/zero of=/mnt/swap/swapfile bs=1M count=16384 status=progress
+root@archiso ~ # chmod 600 /mnt/swap/swapfile
+root@archiso ~ # mkswap /mnt/swap/swapfile
+root@archiso ~ # swapon /mnt/swap/swapfile
 ```
 
 ## Setting up encryption
 
 ```
-# cd /
-# mkdir /mnt/efi
-# mount /dev/sda1 /mnt/efi
-# dd bs=512 count=4 if=/dev/random of=/crypto_keyfile.bin iflag=fullblock
-# chmod 600 /crypto_keyfile.bin
-# cp /crypto_keyfile.bin /mnt
-# cryptsetup luksAddKey /dev/sda2 /crypto_keyfile.bin
+root@archiso ~ # mkdir /mnt/efi
+root@archiso ~ # mount /dev/sda1 /mnt/efi
+root@archiso ~ # dd bs=512 count=4 if=/dev/random of=/crypto_keyfile.bin iflag=fullblock
+root@archiso ~ # chmod 600 /crypto_keyfile.bin
+root@archiso ~ # cp /crypto_keyfile.bin /mnt
+root@archiso ~ # cryptsetup luksAddKey /dev/sda2 /crypto_keyfile.bin
 
 ```
 
 ## Switch to chroot
 
 ```
-# reflector --latest 5 --sort rate --save /etc/pacman.d/mirrorlist
-# pacman -Syy
-# pacstrap /mnt base linux linux-firmware vim intel-ucode btrfs-progs
-# genfstab -U /mnt >> /mnt/etc/fstab
-# cat /mnt/etc/fstab
-# arch-chroot /mnt
+root@archiso ~ # reflector --latest 5 --sort rate --save /etc/pacman.d/mirrorlist
+root@archiso ~ # pacman -Syy
+root@archiso ~ # pacstrap /mnt base linux linux-firmware vim intel-ucode btrfs-progs
+root@archiso ~ # genfstab -U /mnt >> /mnt/etc/fstab
+root@archiso ~ # cat /mnt/etc/fstab
+root@archiso ~ # arch-chroot /mnt
 ```
 
 ## chroot
 
-```shell
-$ timedatectl
-$ ln -sf /usr/share/zoneinfo/<Region>/<City> /etc/localtime
-$ hwclock --systohc
-$ vim /etc/locale.gen
+```
+[root@archiso /]# timedatectl
+[root@archiso /]# ln -sf /usr/share/zoneinfo/<Region>/<City> /etc/localtime
+[root@archiso /]# hwclock --systohc
+[root@archiso /]# vim /etc/locale.gen
 ```
 
-In vim, uncomment `en_us.UTF-8 UTF-8`
+In vim, uncomment `en_us.UTF-8 UTF-8`. Then `:wq`.
 
-```shell
-$ locale-gen
-$ echo "LANG=en_US.UTF-8" >> /etc/locale.conf
-$ echo "my-arch-hostname" >> /etc/hostname
-$ echo "127.0.0.1\tlocalhost\n::1\t\tlocalhost\n127.0.1.1\tmy-arch-hostname.localdomain\tmy-arch-hostname" >> /etc/hosts
-$ pacman -Syu networkmanager network-manager-applet grub bash-completion efibootmgr wpa_supplicant git reflector snapper bluez bluez-utils cups hplip xdg-user-dirs xdg-utils alsa-utils pulseaudio pulseaudio-bluetooth dialog base-devel linux-headers
+```
+[root@archiso /]# locale-gen
+[root@archiso /]# echo "LANG=en_US.UTF-8" >> /etc/locale.conf
+[root@archiso /]# echo "my-arch-hostname" >> /etc/hostname
+[root@archiso /]# echo "127.0.0.1\tlocalhost\n::1\t\tlocalhost\n127.0.1.1\tmy-arch-hostname.localdomain\tmy-arch-hostname" >> /etc/hosts
+[root@archiso /]# pacman -Syu networkmanager network-manager-applet grub bash-completion efibootmgr wpa_supplicant git reflector snapper bluez bluez-utils cups hplip xdg-user-dirs xdg-utils alsa-utils pulseaudio pulseaudio-bluetooth dialog base-devel linux-headers
 ```
 
 ## Grub setup
 
 Do these steps while still in arch chroot
 
-```shell
-$ vim /etc/mkinitcpio.conf
+```
+[root@archiso /]# vim /etc/mkinitcpio.conf
 ```
 
 Set Modules, Binaries, and Files in the mkinitcpio.conf file:
-```conf
+```
 MODULES=(btrfs)
 BINARIES=(/usr/bin/btrfs)
 FILES=(/crypto_keyfile.bin)
@@ -212,13 +196,15 @@ And add `encrypt` and `resume` to `HOOKS`. For example:
 HOOKS=(base udev autodetect modconf block encrypt filesystems keyboard resume fsck)
 ```
 
-```shell
-$ mkinitcpio -p linux
-$ vim /etc/default/grub
+And then `:wq`.
+
+```
+[root@archiso /]# mkinitcpio -p linux
+[root@archiso /]# vim /etc/default/grub
 ```
 
 Set
-```conf
+```
 GRUB_ENABLE_CRYPTODISK=y
 ```
 
@@ -233,36 +219,45 @@ For hibernation, add this to `GRUB_CMDLINE_LINUX_DEFAULT`:
 resume=UUID=<swap UUID> resume_offset=16400
 ```
 
-Finally,
+And then, `:wq`. Finally,
 
-```shell
-$ grub-install --target=x86_64-efi --efi-directory=/efi --bootloader-id=GRUB
-$ grub mkconfig -o /boot/grub/grub.cfg
-$ chmod 600 /boot/initramfs-linux*
+```
+[root@archiso /]# grub-install --target=x86_64-efi --efi-directory=/efi --bootloader-id=GRUB
+[root@archiso /]# grub mkconfig -o /boot/grub/grub.cfg
+[root@archiso /]# chmod 600 /boot/initramfs-linux*
 ```
 
 ## systemd setup
 
 
-```shell
-$ systemctl enable NetworkManager
-$ systemctl enable bluetooth
-$ systemctl enable cups
+```
+[root@archiso /]# systemctl enable NetworkManager
+[root@archiso /]# systemctl enable bluetooth
+[root@archiso /]# systemctl enable cups
 ```
 
 ## User setup
 ```
-$ useradd -m -G wheel myusername
-$ passwd myusername
-$ EDITOR=vim visudo
+[root@archiso /]# useradd -m -G wheel myusername
+[root@archiso /]# passwd myusername
+[root@archiso /]# EDITOR=vim visudo
 ```
 
-In vim, uncomment the `%wheel` line. Then continue to set the root password and exit out of archroot and reboot
+In vim, uncomment the `%wheel` line. Then `:wq`. Finally,
 
-```shell
-$ passwd
-$ exit
-# reboot
+```
+[root@archiso /]# passwd
+[root@archiso /]# exit
+root@archiso ~ # reboot
+```
+
+## Troubleshooting First Reboot
+If after the first reboot you are thrown into a grub> prompt, then boot back into the archiso and do:
+```
+root@archiso ~ # cryptsetup open /dev/sda2 cryptroot
+root@archiso ~ # mount -o noatime,compress-force=zstd,space_cache=v2,subvol=@ /dev/mapper/cryptroot /mnt
+root@archiso ~ # arch-chroot /mnt
+[root@archiso /]# grub-mkconfig -o /boot/grub/grub.cfg
 ```
 
 ## After the first reboot 
@@ -271,13 +266,13 @@ If everything went well, you will be asked to enter the disk password. Then, you
 
 ## Connect to wifi
 
-```shell
+```
 $ nmtui
 ```
 
 ## Setting up automatic backups
 
-```Shell
+```
 $ sudo umount /.snapshots
 $ sudo rm -r /.snaphots
 $ sudo snapper -c root create-config /.
@@ -303,7 +298,7 @@ TIMELINE_LIMIT_YEARLY="0"
 
 Exit vim and then:
 
-```shell
+```
 $ sudo chmod a+rx /.snapshots
 $ chown :users /.snapshots
 $ sudo systemctl enable --now snapper-timeline.timer
@@ -312,7 +307,7 @@ $ sudo systemctl enable --now snapper-cleanup.timer
 
 And also add backups snapshots of grub via `snap-pac-grub` from the AUR.
 
-```shell
+```
 $ git clone https://aur.archlinux.org/yay.git
 $ cd yay
 $ makepkg -si
@@ -324,12 +319,12 @@ $ yay snap-pac-grub snapper-gui-git
 
 To enable backups when the kernel is updated, make a `50-bootbackup.hook`:
 
-```shell
+```
 $ sudo mkdir /etc/pacman.d/hooks
 $ sudo vim /etc/pacman.d/hooks/50-bootbackup.hook
 ```
 
-```hook
+```
 [Trigger]
 Operation = Upgrade
 Operation = Install
@@ -346,9 +341,11 @@ Exec = /usr/bin/rsync -a --delete /boot /.bootbackup
 
 Then,
 
-```shell
+```
 $ sudo pacman -Syu snap-pac rsync
 ```
+
+This completes the setup.
 
 
 ## What to do when things break
@@ -357,19 +354,19 @@ First, boot into Archlinux ISO
 
 Then, open all snapshots with vim. Use `:n` and `:rew` to find the snapshot number N as shown in `<num>N</num>`
 
-```shell
-# cryptsetup open /dev/sda2 cryptroot
-# mount /dev/mapper/cryptroot /mnt
-$ vim /mnt/@snapshots/*/info.xml
-$ mv /mnt/@ /mnt/@.broken
-$ btrfs subvolume snapshot /mnt/@snapshots/N/snapshot /mnt/@
+```
+root@archiso ~ # cryptsetup open /dev/sda2 cryptroot
+root@archiso ~ # mount /dev/mapper/cryptroot /mnt
+root@archiso ~ # vim /mnt/@snapshots/*/info.xml
+root@archiso ~ # mv /mnt/@ /mnt/@.broken
+root@archiso ~ # btrfs subvolume snapshot /mnt/@snapshots/N/snapshot /mnt/@
 ```
 
 and then reboot. You are now recovered!
 
 You can also view the system log with
-```bash
-$ journalctl -s -1h
+```
+journalctl -s -1h
 ```
 
 ## btrfs
@@ -396,11 +393,4 @@ List subvolumes
 # btrfs subvolume list /
 ```
 
-## Troubleshooting First Reboot
-If after the first reboot you are thrown into a grub> prompt, then boot back into the archiso and do:
-```shell
-# cryptsetup open /dev/sda2 cryptroot
-# mount -o noatime,compress-force=zstd,space_cache=v2,subvol=@ /dev/mapper/cryptroot /mnt
-# arch-chroot /mnt
-# grub-mkconfig -o /boot/grub/grub.cfg
-```
+
