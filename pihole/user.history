@@ -23,9 +23,12 @@
    79  sudo snap install --classic certbot
    80  sudo ln -s /snap/bin/certbot /usr/bin/certbot
    83  sudo service lighttpd stop
-   84  sudo certbot certonly --standalone
-   85  sudo certbot renew --dry-run
-   89  sudo cat /etc/letsencrypt/live/pihole.example.com/privkey.pem /etc/letsencrypt/live/pihole.example.com/cert.pem | sudo tee /etc/letsencrypt/live/pihole.example.com/combined.pem
+   84  sudo echo "cat /etc/letsencrypt/live/pihole.example.com/privkey.pem /etc/letsencrypt/live/pihole.example.com/cert.pem | tee /etc/letsencrypt/live/pihole.example.com/combined.pem" > /home/piuser/certbot-deploy-hook.sh
+   85  sudo echo "service lighttpd restart" >> /home/piuser/certbot-deploy-hook.sh
+   86  sudo cdhmod +x /home/piuser/certbot-deploy-hook.sh
+   87  sudo chown www-data:root /home/piuser/certbot-deploy-hook.sh
+   88  sudo certbot certonly --standalone --preferred-challenges http --deploy-hook "/home/piuser/certbot-deploy-hook.sh" -d pihole.example.com
+   89  sudo certbot renew --dry-run
    91  sudo chown www-data -R /etc/letsencrypt/live
    92  sudo vim /etc/lighttpd/external.conf
    93  sudo service lighttpd restart
