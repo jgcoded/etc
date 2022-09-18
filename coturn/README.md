@@ -8,6 +8,22 @@ The configuration files here provide:
 * ASP.NET API server managed with systemd
 * Nginx with https support proxying requests to the API server
 
+## Manual API deployment steps
+
+Use scp to transfer the files
+
+```
+scp bin\Release\net6.0\linux-x64\publish\* turn@p2p.foo.com:/var/www/rooms
+```
+
+SSH to the server via Putty or a terminal.
+
+```
+sudo systemctl restartstart kestrel-rooms.service
+sudo journalctl -fu kestrel-rooms.service --since today
+```
+
+
 ## Cert renewal steps
 
 DNS challenge must be used due to the wildcart cert. SSH to the server via Putty or a terminal.
