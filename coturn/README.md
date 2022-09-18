@@ -10,7 +10,7 @@ The configuration files here provide:
 
 ## Cert renewal steps
 
-DNS challenge must be used due to the wildcart cert.
+DNS challenge must be used due to the wildcart cert. SSH to the server via Putty or a terminal.
 
 ```
 sudo certbot -d *.p2p.foo.com --manual --preferred-challenges dns certonly
