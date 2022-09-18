@@ -34,7 +34,7 @@ sudo snap install --edge certbot-dns-azure
 sudo snap set certbot trust-plugin-with-root=ok
 sudo snap connect certbot:plugin certbot-dns-azure
 certbot plugins --text
-sudo certbot certonly --dns-azure-config /home/turn/azure-dns.ini -d *.p2p.foo.com --deploy-hook "systemctl restart coturn && systemctl restart kestrel-rooms.service && nginx -s reload"
+sudo certbot certonly --deploy-hook "systemctl restart coturn && systemctl restart kestrel-rooms.service && nginx -s reload" --dns-azure-config /home/turn/azure-dns.ini -d *.p2p.foo.com
 sudo certbot renew --dry-run
 
 
