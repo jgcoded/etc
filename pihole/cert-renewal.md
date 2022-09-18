@@ -1,3 +1,9 @@
+Certificate autorenewal was set up with the following command. Port 80 must be kept open.
+
+```
+sudo certbot certonly --standalone --preferred-challenges http --deploy-hook "/home/piuser/certbot-deploy-hook.sh" -d pihole.example.com
+```
+
 
 Certbot should be able to automatically renew the certs. If certbot had an error, run:
 
@@ -17,9 +23,3 @@ Lighttpd should be binding to port 8080 (per the lighttpd external.conf in this 
 $ sudo service lighttpd stop
 ```
 
-The only manual steps that must be run after a certbot cert renewal:
-
-```
-$ sudo cat /etc/letsencrypt/live/pihole.example.com/privkey.pem /etc/letsencrypt/live/pihole.example.com/cert.pem | sudo tee /etc/letsencrypt/live/pihole.example.com/combined.pem
-$ sudo service lighttpd restart
-```
