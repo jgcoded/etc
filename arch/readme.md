@@ -172,6 +172,7 @@ In vim, uncomment `en_us.UTF-8 UTF-8`. Then `:wq`.
 [root@archiso /]# echo "LANG=en_US.UTF-8" >> /etc/locale.conf
 [root@archiso /]# echo "my-arch-hostname" >> /etc/hostname
 [root@archiso /]# echo "127.0.0.1\tlocalhost\n::1\t\tlocalhost\n127.0.1.1\tmy-arch-hostname.localdomain\tmy-arch-hostname" >> /etc/hosts
+[root@archiso /]# echo "PRUNENAMES=\".snapshots\"" >> /etc/updatedb.conf
 [root@archiso /]# pacman -Syu networkmanager network-manager-applet grub bash-completion efibootmgr wpa_supplicant git reflector snapper bluez bluez-utils cups hplip xdg-user-dirs xdg-utils alsa-utils pulseaudio pulseaudio-bluetooth dialog base-devel linux-headers
 ```
 
@@ -280,7 +281,6 @@ $ sudo btrfs subvolume delete /.snapshots
 $ sudo mkdir /.snapshots
 $ sudo mount -a
 $ sudo chmod 750 /.snapshots
-$ sudo echo "PRUNENAMES=\".snapshots\"" >> /etc/updatedb.conf
 $ sudo vim /etc/snapper/configs/root
 ```
 
@@ -314,7 +314,7 @@ $ makepkg -si
 $ yay -Y --gendb
 $ yay -Syu --devel
 $ yay -Y --devel --save
-$ yay snap-pac-grub snapper-gui-git
+$ yay -Syu snap-pac-grub snapper-gui-git snap-pac rsync
 ```
 
 To enable backups when the kernel is updated, make a `50-bootbackup.hook`:
@@ -339,11 +339,6 @@ When = PostTransaction
 Exec = /usr/bin/rsync -a --delete /boot /.bootbackup
 ```
 
-Then,
-
-```
-$ sudo pacman -Syu snap-pac rsync
-```
 
 This completes the setup.
 
@@ -384,6 +379,7 @@ defragment
 
 View compression ratio
 ```
+$ sudo pacman -Syu compsize
 $ compsize -x /
 ```
 
