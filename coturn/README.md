@@ -31,7 +31,7 @@ Certificate autorenewal was set up with the following command.
 An Azure Managed Service Identity is used to allow the processes within the VM to modify the Azure DNS Zone.
 
 ```
-sudo certbot certonly --dns-azure-config /home/turn/azure-dns.ini -d *.p2p.foo.com --deploy-hook "systemctl restart coturn && systemctl restart kestrel-rooms.service && nginx -s reload"
+sudo certbot certonly --deploy-hook "systemctl restart coturn && systemctl restart kestrel-rooms.service && nginx -s reload" --dns-azure-config /home/turn/azure-dns.ini -d *.p2p.foo.com
 ```
 
 If certbot had an error, run:
