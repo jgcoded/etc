@@ -7,6 +7,7 @@ The configuration files here provide:
 * Coturn with SSL via LetsEncrypt
 * ASP.NET API server managed with systemd
 * Nginx with https support proxying requests to the API server
+* Certificate autorenewal
 
 ## Manual API deployment steps
 
@@ -26,15 +27,19 @@ sudo journalctl -fu kestrel-rooms.service --since today
 
 ## Cert renewal steps
 
-DNS challenge must be used due to the wildcart cert. SSH to the server via Putty or a terminal.
+Certificate autorenewal was set up with the following command.
+An Azure Managed Service Identity is used to allow the processes within the VM to modify the Azure DNS Zone.
 
 ```
-sudo certbot -d *.p2p.foo.com --manual --preferred-challenges dns certonly
-sudo systemctl restart coturn
-sudo systemctl restart kestrel-rooms.service
-sudo nginx -t
-sudo nginx -s reload
+sudo certbot certonly --dns-azure-config /home/turn/azure-dns.ini -d *.p2p.foo.com --deploy-hook "systemctl restart coturn && systemctl restart kestrel-rooms.service && nginx -s reload"
 ```
+
+If certbot had an error, run:
+```
+$ sudo certbot renew --dry-run
+$ sudo certbot renew
+```
+
 
 References
 
