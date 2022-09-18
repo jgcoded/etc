@@ -17,24 +17,27 @@ sudo cp /etc/turnserver.conf /etc/turnserver.conf.bak
 sudo vim /etc/turnserver.conf
 
 # cert
+
+# Set up an Managed Service Identity in Azure that has Azure DNS Contributor role on the DNS Zone.
+# Assign the MSI to the VM.
+# Then note the MSI client ID and the DNS Zone's resource ID
+sudo touch /home/turn/azure-dns.ini
+sudo chown root:root azure-dns.ini
+sudo echo "dns_azure_msi_client_id = MSI-CLIENT-ID-GUID-HERE" >> /home/turn/azure-dns.ini
+sudo echo "dns_azure_zone1 = foo.com:<<DNS ZONE Resource ID HERE>>" >> /home/turn/azure-dns.ini
+sudo chmod go-rwx /home/turn/azure-dns.ini
+
 sudo snap install core; sudo snap refresh core
 sudo snap install --classic certbot
 sudo ln -s /snap/bin/certbot /usr/bin/certbot
+sudo snap install --edge certbot-dns-azure
+sudo snap set certbot trust-plugin-with-root=ok
+sudo snap connect certbot:plugin certbot-dns-azure
+certbot plugins --text
+sudo certbot certonly --dns-azure-config /home/turn/azure-dns.ini -d *.p2p.foo.com --deploy-hook "systemctl restart coturn && systemctl restart kestrel-rooms.service && nginx -s reload"
+sudo certbot renew --dry-run
 
-sudo certbot -d *.p2p.foo.com --manual --preferred-challenges dns certonly
-#/etc/letsencrypt/live/p2p.foo.com/fullchain.pem
-#/etc/letsencrypt/live/p2p.foo.com/privkey.pem
-# - This certificate will not be renewed automatically.
-# Autorenewal of --manual certificates requires the
-# use of an authentication hook script (--manual-auth-hook)
-# but one was not provided. To renew this certificate,
-# repeat this same certbot command before the
-# certificate's expiry date.
 
-# Can also do:
-# sudo certbot certonly --standalone --preferred-challenges http \
-#    --deploy-hook "systemctl restart coturn" \
-#    -d <YOUR_DOMAIN>
 
 sudo nano /etc/turnserver.conf
 sudo systemctl restart coturn
