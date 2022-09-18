@@ -358,7 +358,8 @@ First, boot into Archlinux ISO
 Then, open all snapshots with vim. Use `:n` and `:rew` to find the snapshot number N as shown in `<num>N</num>`
 
 ```shell
-$ mount /dev/sda3 /mnt
+# cryptsetup open /dev/sda2 cryptroot
+# mount /dev/mapper/cryptroot /mnt
 $ vim /mnt/@snapshots/*/info.xml
 $ mv /mnt/@ /mnt/@.broken
 $ btrfs subvolume snapshot /mnt/@snapshots/N/snapshot /mnt/@
