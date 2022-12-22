@@ -385,7 +385,7 @@ root@archiso ~ # arch-chroot /mnt
 [root@archiso /]# grub mkconfig -o /boot/grub/grub.cfg
 [root@archiso /]# chmod 600 /boot/initramfs-linux*
 [root@archiso /]# exit
-[root@archiso /]# systemctl reboot
+root@archiso ~ # systemctl reboot
 ```
 
 
