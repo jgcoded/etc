@@ -364,6 +364,31 @@ You can also view the system log with
 journalctl -s -1h
 ```
 
+### What to do when the system goes directly to BIOS after decrypting the disk
+
+One time I missed [this post](https://archlinux.org/news/grub-bootloader-upgrade-and-configuration-incompatibilities/) in the archlinux home page about a change in Grub. After a grub package update it is advised to run both, installation and regeneration of configuration. The high level description of the steps:
+
+1. Boot to the Archlinux Live USB
+2. Use `fdisk -l` to identify the EFI and disk partitions
+3. mount those partitions
+4. chroot
+5. Run grub commands
+6. reboot
+
+```
+root@archiso ~ # fdisk -l
+root@archiso ~ # cryptsetup open /dev/sda2 cryptroot
+root@archiso ~ # mount -o noatime,compress-force=zstd,space_cache=v2,subvol=@ /dev/mapper/cryptroot /mnt
+root@archiso ~ # mount /dev/sda1 /mnt/efi
+root@archiso ~ # arch-chroot /mnt
+[root@archiso /]# grub-install --target=x86_64-efi --efi-directory=/efi --bootloader-id=GRUB
+[root@archiso /]# grub mkconfig -o /boot/grub/grub.cfg
+[root@archiso /]# chmod 600 /boot/initramfs-linux*
+[root@archiso /]# exit
+[root@archiso /]# systemctl reboot
+```
+
+
 ## btrfs
 
 Filesystem usage
