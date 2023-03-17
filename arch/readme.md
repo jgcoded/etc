@@ -224,7 +224,7 @@ And then, `:wq`. Finally,
 
 ```
 [root@archiso /]# grub-install --target=x86_64-efi --efi-directory=/efi --bootloader-id=GRUB
-[root@archiso /]# grub mkconfig -o /boot/grub/grub.cfg
+[root@archiso /]# grub-mkconfig -o /boot/grub/grub.cfg
 [root@archiso /]# chmod 600 /boot/initramfs-linux*
 ```
 
@@ -382,7 +382,7 @@ root@archiso ~ # mount -o noatime,compress-force=zstd,space_cache=v2,subvol=@ /d
 root@archiso ~ # mount /dev/sda1 /mnt/efi
 root@archiso ~ # arch-chroot /mnt
 [root@archiso /]# grub-install --target=x86_64-efi --efi-directory=/efi --bootloader-id=GRUB
-[root@archiso /]# grub mkconfig -o /boot/grub/grub.cfg
+[root@archiso /]# grub-mkconfig -o /boot/grub/grub.cfg
 [root@archiso /]# chmod 600 /boot/initramfs-linux*
 [root@archiso /]# exit
 root@archiso ~ # systemctl reboot
