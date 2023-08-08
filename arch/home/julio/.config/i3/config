@@ -104,6 +104,9 @@ bindsym $mod+a focus parent
 # focus the child container
 #bindsym $mod+d focus child
 
+# load layout
+bindsym $mod+g exec ~/load_layout.sh
+
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
 set $ws1 "1:www"
@@ -198,23 +201,31 @@ for_window [class="(?i)spotify"] move container to workspace $ws2
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
+# https://www.nordtheme.com/
 bar {
         font pango:DejaVu Sans Mono, CaskaydiaCove NF
         status_command /usr/bin/i3status-rs /home/julio/.config/i3status-rust/config.toml
         strip_workspace_numbers yes
         colors {
-                separator #666666
-                background #222222
-                statusline #dddddd
-                focused_workspace #0088cc #0088cc #ffffff
-                active_workspace #333333 #333333 #ffffff
-                inactive_workspace #333333 #333333 #888888
-                urgent_workspace #2f343a #900000 #ffffff
+                separator #D8DEE9
+                background #2E3440
+                statusline #ECEFF4
+                focused_workspace #2E3440 #A3BE8C #ECEFF4
+                active_workspace ##8FBCBB #A3BE8C #ECEFF4
+                inactive_workspace #2E3440 #4C566A #ECEFF4
+                urgent_workspace #BF616A #BF616A #ECEFF4
         }
 }
 
 hide_edge_borders both
 workspace_auto_back_and_forth yes
+default_border pixel 1
+default_floating_border pixel 1
+gaps inner 2
+gaps horizontal 300
+smart_gaps inverse_outer
+
+client.focused          #5E81AC #285577 #ffffff #2e9ef4   #285577
 
 # auto start
 exec_always xrandr --output HDMI-0 --mode 3440x1440

@@ -1,0 +1,74 @@
+{
+    "border": "pixel",
+    "current_border_width": 2,
+    "floating": "auto_off",
+    "geometry": {
+       "height": 600,
+       "width": 800,
+       "x": 0,
+       "y": 0
+    },
+    "marks": [],
+    "name": "i3-save-tree --works ~",
+    "percent": 0.233333333333333,
+    "swallows": [
+       {
+       "class": "^Alacritty$",
+       "instance": "^Alacritty$",
+       "machine": "^julio\\-arch$",
+       "title": "^i3\\-save\\-tree\\ \\-\\-works\\ \\~$"
+       }
+    ],
+    "type": "con"
+}
+
+{
+    "border": "pixel",
+    "current_border_width": 2,
+    "floating": "auto_off",
+    "geometry": {
+       "height": 1383,
+       "width": 2390,
+       "x": 0,
+       "y": 0
+    },
+    "marks": [],
+    "name": "Mozilla Firefox",
+    "percent": 0.533333333333333,
+    "swallows": [
+       {
+       "class": "^firefox$",
+       "instance": "^Navigator$",
+       "machine": "^julio\\-arch$",
+       "title": "^Mozilla\\ Firefox$",
+       "window_role": "^browser$"
+       }
+    ],
+    "type": "con"
+}
+
+{
+    "border": "none",
+    "current_border_width": 2,
+    "floating": "auto_off",
+    "geometry": {
+       "height": 1387,
+       "width": 1714,
+       "x": 1722,
+       "y": 4
+    },
+    "marks": [],
+    "name": "New tab - obsidian - Obsidian v1.3.7",
+    "percent": 0.233333333333333,
+    "swallows": [
+       {
+       "class": "^obsidian$",
+       "instance": "^obsidian$",
+       "machine": "^julio\\-arch$",
+       "title": "^New\\ tab\\ \\-\\ obsidian\\ \\-\\ Obsidian\\ v1\\.3\\.7$",
+       "window_role": "^browser\\-window$"
+       }
+    ],
+    "type": "con"
+}
+

@@ -1,11 +1,32 @@
-theme = "solarized-dark"
+icons_format = "{icon}"
+
+[theme]
+theme = "nord-dark"
+
+[icons]
 icons = "awesome5"
+[icons.overrides]
+bat = " | | "
+bat_full = " |X| "
+bat_charging = " |^| "
+bat_discharging = " |v| "
 
 [[block]]
 block = "music"
-player = "spotify"
-buttons = ["prev","play","next"]
-on_collapsed_click = "spotify"
+format = " $icon $volume_icon $combo $play $next| "
+seek_step_secs = 10
+[[block.click]]
+button = "up"
+action = "volume_up"
+[[block.click]]
+button = "down"
+action = "volume_down"
+[[block.click]]
+button = "forward"
+action = "seek_forward"
+[[block.click]]
+button = "back"
+action = "seek_backward"
 
 [[block]]
 block = "sound"
@@ -13,13 +34,12 @@ step_width = 3
 
 [[block]]
 block = "disk_space"
-path = "/"
-alias = "/"
 info_type = "available"
-unit = "GB"
-interval = 20
-warning = 20
-alert = 10
+alert_unit = "GB"
+alert = 10.0
+warning = 15.0
+format = " $icon $available "
+format_alt = " $icon $available / $total "
 
 [[block]]
 block = "cpu"
@@ -27,34 +47,28 @@ interval = 1
 
 [[block]]
 block = "memory"
-display_type = "memory"
-format_mem = "{mem_total_used_percents}"
-format_swap = "{swap_used_percents}"
+format = " $icon $mem_used_percents.eng(w:1) "
+format_alt = " $icon_swap $swap_free.eng(w:3,u:B,p:M)/$swap_total.eng(w:3,u:B,p:M)($swap_used_percents.eng(w:2)) "
+interval = 30
+warning_mem = 70
+critical_mem = 90
 
 [[block]]
 block = "nvidia_gpu"
-label = "GPU"
-show_memory = true
-show_clocks = false
-
-[[block]]
-block = "networkmanager"
-on_click = "alacritty -e nmtui"
-interface_name_exclude = ["br\\-[0-9a-f]{12}", "docker\\d+"]
-interface_name_include = []
+interval = 1
+format = " $icon GPU $utilization $temperature $clocks "
 
 [[block]]
 block = "net"
-format = "{speed_up;K*b} {speed_down;K*b}"
+device = "wlp4s0"
+format = " $icon $signal_strength $ssid $frequency"
+
+[[block]]
+block = "net"
+device = "julio_arch"
+format = " $icon Wireguard  $graph_down $graph_up "
 
 [[block]]
 block = "time"
 interval = 60
-format = "%a %d/%m %R"
-
-[[block]]
-block = "custom"
-command = "echo \uf011" # assumes fontawesome icons
-on_click = "systemctl `echo -e 'suspend\npoweroff\nreboot' | dmenu`"
-interval = "once"
 
