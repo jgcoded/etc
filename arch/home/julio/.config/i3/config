@@ -110,6 +110,7 @@ mode "layout" {
     bindsym 2 exec ~/load_layout_double.sh
     bindsym 3 exec ~/load_layout_triple.sh
     bindsym 4 exec ~/load_layout_quad.sh
+    bindsym g gaps horizontal current set 400
 
     bindsym $mod+o mode "launch"
     # back to normal: Enter or Escape or $mod+r
