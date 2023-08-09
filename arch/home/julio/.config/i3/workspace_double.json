@@ -1,0 +1,37 @@
+{
+    "layout": "splith",
+    "percent": 0.5,
+    "type": "con",
+    "nodes": [
+                {
+                    "border": "normal",
+                    "floating": "auto_off",
+                    "name": "Left",
+                    "percent": 0.50,
+                    "swallows": [
+                        {
+                            "class": "Alacritty"
+                        },
+                        {
+                            "class": "firefox"
+                        }
+                    ],
+                    "type": "con"
+                },
+                {
+                    "border": "normal",
+                    "floating": "auto_off",
+                    "name": "Right",
+                    "percent": 0.50,
+                    "swallows": [
+                        {
+                            "class": "Alacritty"
+                        },
+                        {
+                            "class": "firefox"
+                        }
+                    ],
+                    "type": "con"
+                }
+    ]
+}

@@ -105,13 +105,25 @@ bindsym $mod+a focus parent
 #bindsym $mod+d focus child
 
 # load layout
-bindsym $mod+g exec ~/load_layout.sh
+mode "layout" {
+    bindsym 1 exec ~/load_layout_single.sh
+    bindsym 2 exec ~/load_layout_double.sh
+    bindsym 3 exec ~/load_layout_triple.sh
+    bindsym 4 exec ~/load_layout_quad.sh
+
+    bindsym $mod+o mode "launch"
+    # back to normal: Enter or Escape or $mod+r
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+    bindsym $mod+r mode "default"
+}
+bindsym $mod+g mode "layout"
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
-set $ws1 "1:www"
-set $ws2 "2:media"
-set $ws3 "3:code"
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
 set $ws4 "4"
 set $ws5 "5"
 set $ws6 "6"
@@ -186,18 +198,19 @@ mode "launch" {
         bindsym s       exec spotify
         bindsym 1       exec 1password
         bindsym t       exec alacritty
+        bindsym o       exec obsidian
 
 	# back to normal: Enter or Escape or $mod+r
         bindsym Return mode "default"
         bindsym Escape mode "default"
-        bindsym Mod1+r mode "default"
+        bindsym $mod+r mode "default"
 }
 
 bindsym $mod+o mode "launch"
 
 assign [class="(?i)firefox"] $ws1
 assign [class="(?i)thunderbird"] $ws2
-for_window [class="(?i)spotify"] move container to workspace $ws2
+for_window [class="(?i)spotify"] move container to workspace $ws3
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
@@ -222,8 +235,9 @@ workspace_auto_back_and_forth yes
 default_border pixel 1
 default_floating_border pixel 1
 gaps inner 2
-gaps horizontal 300
-smart_gaps inverse_outer
+gaps outer 0
+#gaps horizontal 380
+#smart_gaps inverse_outer
 
 client.focused          #5E81AC #285577 #ffffff #2e9ef4   #285577
 

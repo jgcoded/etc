@@ -1,0 +1,84 @@
+// vim:ts=4:sw=4:et
+{
+    "layout": "splith",
+    "percent": 1.0,
+    "type": "con",
+    "nodes": [
+        {
+            "border": "pixel",
+            "current_border_width": 2,
+            "floating": "auto_off",
+            "geometry": {
+               "height": 600,
+               "width": 800,
+               "x": 0,
+               "y": 0
+            },
+            "marks": [],
+            "name": "left",
+            "percent": 0.220397286821705,
+            "swallows": [
+               {
+                "class": "^Alacritty$"
+               },
+               {
+                "class": "^firefox$"
+               }
+            ],
+            "type": "con"
+        },
+        {
+            "border": "pixel",
+            "current_border_width": 2,
+            "floating": "auto_off",
+            "geometry": {
+               "height": 1383,
+               "width": 2112,
+               "x": 0,
+               "y": 0
+            },
+            "marks": [],
+            "name": "middle",
+            "percent": 0.559205426356589,
+            "swallows": [
+               {
+                "class": "^Alacritty$"
+               },
+               {
+                "class": "^Code$"
+               },
+               {
+                "class": "^firefox$"
+               }
+            ],
+            "type": "con"
+        },
+        {
+            "border": "none",
+            "current_border_width": 2,
+            "floating": "auto_off",
+            "geometry": {
+               "height": 692,
+               "width": 3432,
+               "x": 4,
+               "y": 699
+            },
+            "marks": [],
+            "name": "right",
+            "percent": 0.220397286821705,
+            "swallows": [
+               {
+                "class": "^Alacritty$"
+               },
+               {
+                "class": "^firefox$"
+               },
+               {
+                "class": "^obsidian$"
+               }
+            ],
+            "type": "con"
+        }
+    ]
+}
+
