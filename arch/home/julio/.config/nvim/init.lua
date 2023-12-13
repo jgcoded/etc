@@ -106,6 +106,10 @@ require("lazy").setup({
     dependencies = {
       "tpope/vim-repeat"
     }
+  },
+  {
+    "ThePrimeagen/harpoon", branch = "harpoon2",
+    dependencies = { "nvim-lua/plenary.nvim" }
   }
 })
 require('leap').add_default_mappings(true)
@@ -128,6 +132,9 @@ local highlight = {
     "RainbowViolet",
     "RainbowCyan",
 }
+
+local harpoon = require("harpoon")
+harpoon:setup()
 
 local hooks = require "ibl.hooks"
 -- create the highlight groups in the highlight setup hook, so they are reset
@@ -180,6 +187,15 @@ wk.register({
     q = { "<cmd>TroubleToggle quickfix<cr>", "Trouble quickfix"},
     l = { "<cmd>TroubleToggle loclist<cr>", "Trouble loclist"},
     t = { "<cmd>TodoTrouble<cr>", "Open TODO list with Trouble"}
+  },
+  h = {
+    name = "+harpoon",
+    a = { function() harpoon:list():append() end, "Append to harpoon" },
+    m = { function() harpoon.ui:toggle_quick_menu(harpoon:list()) end, "Toggle quick menu"},
+    j = { function() harpoon:list():select(1) end, "Goto first entry"},
+    k = { function() harpoon:list():select(2) end, "Goto second entry"},
+    l = { function() harpoon:list():select(3) end, "Goto third entry"},
+    p = { function() harpoon:list():select(4) end, "Goto fourth entry"},
   },
   t = { "<cmd>Neotree<cr>", "Open cwd in Neotree"},
   s = { "Start a leap search forward"},
