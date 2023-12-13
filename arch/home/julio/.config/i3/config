@@ -55,10 +55,10 @@ bindsym $mod+d exec --no-startup-id dmenu_run
 # bindcode $mod+40 exec --no-startup-id i3-dmenu-desktop
 
 # change focus
-bindsym $mod+j focus left
-bindsym $mod+k focus down
-bindsym $mod+l focus up
-bindsym $mod+semicolon focus right
+#bindsym $mod+j focus left
+#bindsym $mod+k focus down
+#bindsym $mod+l focus up
+#bindsym $mod+semicolon focus right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -118,7 +118,7 @@ mode "layout" {
     bindsym Escape mode "default"
     bindsym $mod+r mode "default"
 }
-bindsym $mod+g mode "layout"
+bindsym $mod+l mode "layout"
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
@@ -200,6 +200,7 @@ mode "launch" {
         bindsym 1       exec 1password
         bindsym t       exec alacritty
         bindsym o       exec obsidian
+        bindsym a       exec android-studio
 
 	# back to normal: Enter or Escape or $mod+r
         bindsym Return mode "default"

@@ -1,4 +1,6 @@
 1password
+android-studio
+flutter
 godot-mono-bin
 rr
 snap-pac-grub

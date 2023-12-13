@@ -9,12 +9,18 @@
                     "name": "Left",
                     "percent": 0.50,
                     "swallows": [
-                        {
-                            "class": "Alacritty"
-                        },
-                        {
-                            "class": "firefox"
-                        }
+                       {
+                        "class": "^Alacritty$"
+                       },
+                       {
+                        "class": "^Code$"
+                       },
+                       {
+                        "class": "^firefox$"
+                       },
+                       {
+                        "class": "^jetbrains-studio$"
+                       }
                     ],
                     "type": "con"
                 },
@@ -24,12 +30,18 @@
                     "name": "Right",
                     "percent": 0.50,
                     "swallows": [
-                        {
-                            "class": "Alacritty"
-                        },
-                        {
-                            "class": "firefox"
-                        }
+                       {
+                        "class": "^Alacritty$"
+                       },
+                       {
+                        "class": "^Code$"
+                       },
+                       {
+                        "class": "^firefox$"
+                       },
+                       {
+                        "class": "^jetbrains-studio$"
+                       }
                     ],
                     "type": "con"
                 }

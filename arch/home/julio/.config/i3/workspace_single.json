@@ -18,10 +18,16 @@
             "percent": 1.0,
             "swallows": [
                {
+                "class": "^Alacritty$"
+               },
+               {
+                "class": "^Code$"
+               },
+               {
                 "class": "^firefox$"
                },
                {
-                "class": "^Alacritty$"
+                "class": "^jetbrains-studio$"
                }
             ],
             "type": "con"

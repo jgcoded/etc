@@ -3,6 +3,7 @@ adobe-source-han-sans-otc-fonts
 adobe-source-han-serif-otc-fonts
 alacritty
 alsa-utils
+android-studio
 autoconf
 automake
 base
@@ -25,10 +26,12 @@ discord
 dmenu
 efibootmgr
 fakeroot
+fd
 firefox
 fish
 flameshot
 flex
+flutter
 freeglut
 gcc
 git
@@ -59,9 +62,11 @@ lightdm-gtk-greeter-settings
 linux
 linux-firmware
 linux-headers
+lua-language-server
 m4
 make
 neofetch
+neovim
 network-manager-applet
 networkmanager
 nitrogen
@@ -81,8 +86,10 @@ pkgconf
 pulseaudio
 pulseaudio-bluetooth
 reflector
+ripgrep
 rr
 rsync
+rust-analyzer
 snap-pac-grub
 snapper
 snapper-gui-git
@@ -114,6 +121,7 @@ watson
 which
 wireguard-tools
 wpa_supplicant
+xclip
 xdg-user-dirs
 xdg-utils
 xf86-video-vesa

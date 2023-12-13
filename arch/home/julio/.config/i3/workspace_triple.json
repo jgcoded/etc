@@ -49,6 +49,9 @@
                },
                {
                 "class": "^firefox$"
+               },
+               {
+                "class": "^jetbrains-studio$"
                }
             ],
             "type": "con"
