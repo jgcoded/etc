@@ -84,7 +84,7 @@ require("lazy").setup({
     -- your configuration comes here
     -- or leave it empty to use the default settings
     -- refer to the configuration section below
-  }
+  },
 },
 {
     "nvim-neo-tree/neo-tree.nvim",
@@ -110,7 +110,14 @@ require("lazy").setup({
   {
     "ThePrimeagen/harpoon", branch = "harpoon2",
     dependencies = { "nvim-lua/plenary.nvim" }
+  },
+{
+  "rmagatti/auto-session",
+  opts = {
+    log_level = "error",
+    auto_session_suppress_dirs = { "~/", "~/Downloads", "/"},
   }
+},
 })
 require('leap').add_default_mappings(true)
 --require("catppuccin").setup({
@@ -158,28 +165,23 @@ local wk = require("which-key")
 -- Shows a list of your buffer local and global registers when you hit " in NORMAL mode, or <c-r> in INSERT mode.
 wk.register({
   f = {
-    name = "+file", -- optional group name
+    name = "+find", -- optional group name
     f = { "<cmd>Telescope find_files<cr>", "Find File" }, -- create a binding with label
     r = { "<cmd>Telescope oldfiles<cr>", "Open Recent File" }, -- additional options for creating the keymap
     g = { "<cmd>Telescope live_grep<cr>", "Grep Files" },
     b = { "<cmd>Telescope buffers<cr>", "Buffers" },
     h = { "<cmd>Telescope help_tags<cr>", "Help" },
+    d = { "<cmd>Telescope lsp_definitions jump_type=vsplit<cr>", "Symbol Definition"},
+    D = { "<cmd>Telescope lsp_type_definitions jump_type=vsplit<cr>", "Symbol Type Definition"},
+    i = { "<cmd>Telescope lsp_implementations jump_type=vsplit<cr>", "Symbol Implmentation"},
+    w = { "<cmd>Telescope lsp_document_symbols<cr>", "Document Symbols"},
+    W = { "<cmd>Telescope lsp_workspace_symbols<cr>", "Workspace Symbols"},
+    c = { "<cmd>Telescope lsp_incoming_calls<cr>", "Incoming Calls"},
+    C = { "<cmd>Telescope lsp_outgoing_calls<cr>", "Outgoing Calls"},
+    p = { "<cmd>Telescope diagnostics<cr>", "Diagnostics"},
+    t = { "<cmd>Telescope treesitter<cr>", "Treesitter"},
   },
-  c = {
-    name = "+code",
-    b = { "<C-b> Scroll docs up" },
-    f = { "<C-f> Scroll docs down" },
-    s = { "<C-Space>", "<C-Space> Autocomplete" }
-  },
-  g = {
-    name = "+comments",
-    cc = { "<cmd>gcc<cr>", "Toggle current line with linewise comment" },
-    bc = { "<cmd>gbc<cr>", "Toggle current line with blocks comment"}
-  },
-  j = {
-    k = { "Escape in interactive mode" }
-  },
-  x = {
+  t = {
     name = "+trouble",
     x = { "<cmd>TroubleToggle<cr>", "Toggle Trouble List"},
     w = { "<cmd>TroubleToggle workspace_diagnostics<cr>", "Toggle Trouble Workspace Diagnostics"},
@@ -188,23 +190,52 @@ wk.register({
     l = { "<cmd>TroubleToggle loclist<cr>", "Trouble loclist"},
     t = { "<cmd>TodoTrouble<cr>", "Open TODO list with Trouble"}
   },
-  h = {
-    name = "+harpoon",
-    a = { function() harpoon:list():append() end, "Append to harpoon" },
-    m = { function() harpoon.ui:toggle_quick_menu(harpoon:list()) end, "Toggle quick menu"},
-    j = { function() harpoon:list():select(1) end, "Goto first entry"},
-    k = { function() harpoon:list():select(2) end, "Goto second entry"},
-    l = { function() harpoon:list():select(3) end, "Goto third entry"},
-    p = { function() harpoon:list():select(4) end, "Goto fourth entry"},
+  w = {
+    name = "+window",
+    h = { "<cmd>split<cr>", "Split horizontally" },
+    v = { "<cmd>vsplit<cr>", "Split vertically" },
   },
-  t = { "<cmd>Neotree<cr>", "Open cwd in Neotree"},
-  s = { "Start a leap search forward"},
-  S = { "Start a leap search backward"},
-  q = { "<cmd>q<cr>", "Quit :q" }
+  cc = { "<cmd>gcc<cr>", "Toggle current line with linewise comment" },
+  bc = { "<cmd>gbc<cr>", "Toggle current line with blocks comment"},
+  s = { "<Plug>(leap-forward-to)", "Leap search forward" },
+  S = { "<Plug>(leap-backward-to)", "Leap search backward" },
+  gs = { "<Plug>(leap-from-window)", "Leap search windows" },
+  r = { "<cmd>lua vim.lsp.buf.rename()<cr>", "Rename"},
+  q = { "<cmd>q<cr>", "Quit :q" },
+  h = { "<C-W>h", "Focus Window Left" },
+  j = { "<C-W>j", "Focus Window Down" },
+  k = { "<C-W>k", "Focus Window Up" },
+  l = { "<C-W>l", "Focus Window Right" },
+  a = { function() harpoon:list():append() end, "Append to harpoon" },
+  m = { function() harpoon.ui:toggle_quick_menu(harpoon:list()) end, "Toggle quick menu"},
+  ["1"] = { function() harpoon:list():select(1) end, "Goto first entry"},
+  ["2"] = { function() harpoon:list():select(2) end, "Goto second entry"},
+  ["3"] = { function() harpoon:list():select(3) end, "Goto third entry"},
+  ["4"] = { function() harpoon:list():select(4) end, "Goto fourth entry"},
+  x = { "<cmd>xall<cr>", "Exit"}
   }, { prefix = "<leader>" })
   
-vim.keymap.set("i", "jk", "<Esc>")
+wk.register({
+  ["<Tab>"] = { "<cmd>Neotree toggle<cr>", "Open cwd in Neotree"},
+})
+vim.keymap.set("i", "jk", "<Esc>", {desc="Escape from insert"})
 --vim.keymap.set("n", "<leader>q", ":q<cr>")
+-- https://neovim.io/doc/user/lsp.html
+--
+vim.api.nvim_create_autocmd('LspAttach', {
+  callback = function(args)
+    vim.keymap.set('n', 'K', vim.lsp.buf.hover, { buffer = args.buf, desc="Open hover window" })
+    vim.keymap.set('n', 'gr', vim.lsp.buf.references, { buffer = args.buf, desc="Find references" })
+    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { desc="Goto definition" })
+    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, { buffer = args.buf, desc="Goto declaration"})
+    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, { buffer = args.buf, desc="Goto implementation" })
+    vim.keymap.set({'n','v'}, '<C-k>', vim.lsp.buf.code_action, { buffer = args.buf, desc="Perform code action" })
+    --vim.keymap.set('n', '<leader>r', vim.lsp.buf.rename, { buffer = args.buf, desc="Rename symbol"})
+    vim.keymap.set('n', '<leader>fd', vim.lsp.buf.format, { buffer = args.buf, desc="Format document"})
+    vim.keymap.set('n', '[d', '<cmd>lua vim.diagnostic.goto_prev({border="single"})<cr>', {buffer=args.buf, desc="Goto prev diagnostic"})
+    vim.keymap.set('n', ']d', '<cmd>lua vim.diagnostic.goto_next({border="single"})<cr>', {buffer=args.buf, desc="Goto next diagnostic"})
+  end,
+})
 
 require('Comment').setup()
 
@@ -270,6 +301,7 @@ require('Comment').setup()
     })
   })
 
+-- https://neovim.io/doc/user/lsp.html
 -- Rust LSP
 -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#rust_analyzer
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
