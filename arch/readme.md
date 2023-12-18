@@ -364,6 +364,17 @@ You can also view the system log with
 journalctl -s -1h
 ```
 
+### What to do when you end up on the GRUB Rescue shell due to invalid passphrase
+
+Sometimes you may mistakenly enter the wrong passphrase to decrypt the disk at boot time. You will end up at the GRUB Rescue shell. Use these commands to try again:
+
+```
+> cryptomount -a
+> insmod normal
+> normal
+```
+
+
 ### What to do when the system goes directly to BIOS after decrypting the disk
 
 One time I missed [this post](https://archlinux.org/news/grub-bootloader-upgrade-and-configuration-incompatibilities/) in the archlinux home page about a change in Grub. After a grub package update it is advised to run both, installation and regeneration of configuration. The high level description of the steps:
