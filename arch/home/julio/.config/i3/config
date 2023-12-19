@@ -17,7 +17,7 @@ set $mod Mod4
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
-font pango:DejaVu Sans Mono 8
+font pango:jetbrains-mono-noto-color 8
 
 # The combination of xss-lock, nm-applet and pactl is a popular choice, so
 # they are included here as an example. Modify as you see fit.
@@ -218,17 +218,18 @@ for_window [class="(?i)spotify"] move container to workspace $ws3
 # finds out, if available)
 # https://www.nordtheme.com/
 bar {
-        font pango:DejaVu Sans Mono, CaskaydiaCove NF
+        font pango:jetbrains-mono-noto-color
         status_command /usr/bin/i3status-rs /home/julio/.config/i3status-rust/config.toml
         strip_workspace_numbers yes
+        position bottom
         colors {
-                separator #D8DEE9
-                background #2E3440
+                separator #3b4261
+                background #1F2335
                 statusline #ECEFF4
-                focused_workspace #2E3440 #A3BE8C #ECEFF4
-                active_workspace ##8FBCBB #A3BE8C #ECEFF4
+                focused_workspace #3B4261 #3d59a1 #ECEFF4
+                active_workspace #3B4261 #A9B1D6 #ECEFF4
                 inactive_workspace #2E3440 #4C566A #ECEFF4
-                urgent_workspace #BF616A #BF616A #ECEFF4
+                urgent_workspace #F7768E #DB4B4B #ECEFF4
         }
 }
 

@@ -72,6 +72,7 @@ networkmanager
 nitrogen
 nodejs
 noto-fonts-cjk
+noto-fonts-emoji
 npm
 ntp
 nvidia
@@ -95,6 +96,7 @@ snapper
 snapper-gui-git
 spotify
 sshfs
+starship
 sudo
 systemd-resolvconf
 texinfo
@@ -111,6 +113,7 @@ texlive-pstricks
 texlive-publishers
 the_silver_searcher
 ttf-font-awesome
+ttf-jetbrains-mono-nerd
 unzip
 vim
 virtualbox

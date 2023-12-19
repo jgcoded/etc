@@ -9,3 +9,5 @@ if status is-interactive
     gpg-connect-agent updatestartuptty /bye >/dev/null
 end
 
+starship init fish | source
+

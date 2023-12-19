@@ -1,7 +1,10 @@
 icons_format = "{icon}"
 
 [theme]
-theme = "nord-dark"
+theme = "ctp-macchiato"
+
+[theme.overrides]
+idle_bg = "#1F2335"
 
 [icons]
 icons = "awesome5"
@@ -71,4 +74,19 @@ format = " $icon Wireguard  $graph_down $graph_up "
 [[block]]
 block = "time"
 interval = 60
+
+[[block]]
+block = "menu"
+text = "\uf011 "
+[[block.items]]
+display = " -&gt;   Sleep   &lt;-"
+cmd = "systemctl suspend"
+[[block.items]]
+display = " -&gt; Power Off &lt;-"
+cmd = "poweroff"
+confirm_msg = "Are you sure you want to power off?"
+[[block.items]]
+display = " -&gt;  Reboot   &lt;-"
+cmd = "reboot"
+confirm_msg = "Are you sure you want to reboot?"
 
