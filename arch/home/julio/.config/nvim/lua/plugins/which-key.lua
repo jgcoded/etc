@@ -8,6 +8,7 @@ return {
   end,
   config = function(args)
     local wk = require("which-key")
+    local harpoon = require("harpoon")
 
     -- whichkey also comes build in with features when you press:
     -- Shows a list of your buffer local and global marks when you hit ` or '
@@ -43,9 +44,13 @@ return {
         name = "+window",
         h = { "<cmd>split<cr>", "Split horizontally" },
         v = { "<cmd>vsplit<cr>", "Split vertically" },
+        ["="] = { "<C-w>=", "Equally high and wide" },
+        ["<"] = { "<C-w><", "Decrease width" },
+        [">"] = { "<C-w>>", "Increase width" },
       },
       cc = { "<cmd>gcc<cr>", "Toggle current line with linewise comment" },
       bc = { "<cmd>gbc<cr>", "Toggle current line with blocks comment"},
+      cf = { "<cmd>Telescope flutter commands<cr>", "Telescope Flutter" },
       s = { "<Plug>(leap-forward-to)", "Leap search forward" },
       S = { "<Plug>(leap-backward-to)", "Leap search backward" },
       gs = { "<Plug>(leap-from-window)", "Leap search windows" },
@@ -63,7 +68,6 @@ return {
       ["4"] = { function() harpoon:list():select(4) end, "Goto fourth entry"},
       x = { "<cmd>xall<cr>", "Exit"}
       }, { prefix = "<leader>" })
-      
     wk.register({
       ["<Tab>"] = { "<cmd>Neotree toggle<cr>", "Open cwd in Neotree"},
     })
