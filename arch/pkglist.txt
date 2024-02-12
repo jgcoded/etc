@@ -24,6 +24,7 @@ cups
 dialog
 discord
 dmenu
+docker
 efibootmgr
 fakeroot
 fd
@@ -41,7 +42,6 @@ glu
 go
 go-tools
 godot
-godot-mono-bin
 graphviz
 groff
 grub
@@ -53,6 +53,7 @@ i3lock
 i3status
 i3status-rust
 intel-ucode
+jdk11-openjdk
 jupyter-notebook
 libfido2
 libtool
@@ -81,11 +82,12 @@ obs-studio
 obsidian
 openssh
 patch
+pavucontrol
+perf
 perl-anyevent-i3
 picom
+pipewire-pulse
 pkgconf
-pulseaudio
-pulseaudio-bluetooth
 reflector
 ripgrep
 rr
