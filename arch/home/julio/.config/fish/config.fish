@@ -9,5 +9,8 @@ if status is-interactive
     gpg-connect-agent updatestartuptty /bye >/dev/null
 end
 
+fish_add_path -p ~/.dotnet ~/.dotnet/tools
+set -gx DOTNET_ROOT ~/.dotnet
+
 starship init fish | source
 
